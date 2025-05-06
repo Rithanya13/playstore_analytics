@@ -39,7 +39,7 @@ A predictive analytics project analyzing factors that drive app downloads, user 
 ## 📊 Visualizations
 
 1. **Distribution of log(Installs)**  
-   ![Distribution of log(Installs)]![Distribution of log(Installs)](https://github.com/user-attachments/assets/b97da62a-4f17-4853-8f2c-cbfe21503410)
+   ![Distribution of log(Installs)](https://github.com/user-attachments/assets/b97da62a-4f17-4853-8f2c-cbfe21503410)
 
 
 2. **Top 10 App Categories**  
