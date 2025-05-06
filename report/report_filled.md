@@ -151,6 +151,75 @@ This project demonstrated an end-to-end predictive analytics workflow on the Pla
 - Parsing & cleaning functions  
 - Model training and evaluation calls  
 - Price-optimization simulation code
+  # Appendix
+
+## A. Key Code Snippets
+
+Below are the essential code excerpts needed to reproduce our pipeline:
+
+### 1. Parsing & Cleaning
+
+```python
+def parse_reviews(x):
+    if pd.isna(x):
+        return np.nan
+    s = str(x).strip()
+    if s.lower().endswith('m'):
+        return float(s[:-1]) * 1e6
+    if s.lower().endswith('k'):
+        return float(s[:-1]) * 1e3
+    return float(s.replace(',', '')) if s.replace(',', '').isdigit() else np.nan
+
+df['Reviews'] = df['Reviews'].apply(parse_reviews)
+installs_clean = df['Installs'].str.replace(r'[+,]', '', regex=True)
+df['Installs'] = installs_clean.astype(int)
+df['Price'] = pd.to_numeric(df['Price'].str.replace(r'^\$', '', regex=True),
+                           errors='coerce').fillna(0.0)
+def parse_size(size):
+    if pd.isna(size) or size == 'Varies with device': return np.nan
+    s = size.strip()
+    return float(s[:-1]) if s.endswith('M') else float(s[:-1]) / 1024
+df['Size'] = df['Size'].apply(parse_size)
+
+**###2.  Model Training & Evaluation**
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model  import LinearRegression
+from sklearn.ensemble       import RandomForestRegressor
+from sklearn.metrics        import r2_score, mean_squared_error
+
+X = df[feature_cols]
+y = df['log_Installs']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Linear Regression
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_test)
+
+# Random Forest
+rf = RandomForestRegressor(random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+y_pred_rf = rf.predict(X_test)
+
+print("LR R²:", r2_score(y_test, y_pred_lr), "RMSE:", mean_squared_error(y_test, y_pred_lr, squared=False))
+print("RF R²:", r2_score(y_test, y_pred_rf), "RMSE:", mean_squared_error(y_test, y_pred_rf, squared=False))
+
+**###3.Price-optimization simulation**
+
+results = []
+for price in np.arange(0.99, 10.0, 1.0):
+    sim = df[df['is_free'] == 0].copy()
+    sim['Price'] = price
+    sim['price_vs_global_median'] = price / global_median
+    log_inst = rf.predict(sim[feature_cols_elastic])
+    installs = np.expm1(log_inst)
+    revenue = installs * price
+    results.append({'Price': price, 'TotalRevenue': revenue.sum()})
+
+results_df = pd.DataFrame(results)
+best = results_df.loc[results_df['TotalRevenue'].idxmax()]
+print("Optimal Price:", best.Price)
 
 ### B. Figures  
 - EDA plots (histograms, boxplots, heatmap)  
