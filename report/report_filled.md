@@ -46,9 +46,9 @@ The Google Play Store hosts millions of Android applications, with developers co
 - **Observation:** Niche genres like Puzzle and Card see high per-app installs despite lower counts.
 
 ### 2.5 Key Takeaways  
-1. **Reviews** are strongly predictive of installs.  
-2. **Free apps** significantly outperform paid in download volume.  
-3. **Recency** (days since last update) has a moderate positive effect on user engagement.  
+1. **`log_Reviews` and `log_Installs`** are strongly correlated (ρ ≈ 0.94).  
+2. **Free apps** significantly outperform paid in download volume (88% free).  
+3. **Recency** (`days_since_update`) has a moderate positive effect on installs.  
 4. **Category and Genre** provide marginal lifts that can segment marketing strategies.
 
 ---
