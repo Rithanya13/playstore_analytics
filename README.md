@@ -36,29 +36,26 @@ A predictive analytics project analyzing factors that drive app downloads, user 
    ```bash
    !pip install pandas numpy scikit-learn matplotlib seaborn kaggle
 
-## 📊 Visualizations
+- **Distribution of log(Installs)**  
+  ![Distribution](visualizations/Distribution of log(Installs).png)
 
-1. **Distribution of log(Installs)**  
-   ![Distribution of log(Installs)](https://github.com/user-attachments/assets/b97da62a-4f17-4853-8f2c-cbfe21503410)
+- **Top 10 App Categories**  
+  ![Categories](visualizations/Top 10 App Categories.png)
 
+- **Reviews vs. Installs**  
+  ![Reviews vs Installs](visualizations/Reviews vs. Installs.png)
 
-2. **Top 10 App Categories**  
-   ![Top 10 App Categories](visualizations/bar_top_categories.png)
+- **Rating by Top 5 Categories**  
+  ![Ratings](visualizations/Rating by Top 5 Categories (boxplot).png)
 
-3. **Reviews vs Installs (log–log)**  
-   ![Reviews vs Installs](visualizations/scatter_reviews_vs_installs.png)
+- **Feature Correlation Matrix**  
+  ![Correlation Heatmap](visualizations/Feature Correlation Matrix (heatmap).png)
 
-4. **Rating by Top 5 Categories**  
-   ![Rating by Category](visualizations/boxplot_rating_by_category.png)
+- **RF: Actual vs Predicted Installs**  
+  ![RF Actual vs Predicted](visualizations/Actual vs Predicted Installs .png)
 
-5. **Feature Correlation Matrix**  
-   ![Feature Correlation Matrix](visualizations/heatmap_correlations.png)
+- **Top 10 Feature Importances**  
+  ![Feature Importances](visualizations/Top 10 Feature Importances (bar chart).png)
 
-6. **RF: Actual vs Predicted Installs**  
-   ![Actual vs Predicted Installs](visualizations/scatter_installs_actual_vs_predicted.png)
-
-7. **Top 10 Feature Importances (Installs Model)**  
-   ![Feature Importances](visualizations/bar_feature_importances_installs.png)
-
-8. **Revenue vs Price Curve**  
-   ![Revenue Curve](visualizations/revenue_curve.png)
+- **Revenue vs Price Curve**  
+  ![Revenue Curve](visualizations/Revenue vs. Price Curve.png)
