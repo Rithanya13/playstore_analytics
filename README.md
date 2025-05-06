@@ -1,6 +1,6 @@
 # Google Play Store Analytics
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](notebooks/playstore_analysis.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Rithanya13/playstore-analytics/blob/main/notebooks/playstore_analysis.ipynb)
 
 ## 📄 Project Summary
 A predictive analytics project analyzing factors that drive app downloads, user ratings, and pricing strategies on the Google Play Store.
@@ -35,7 +35,7 @@ A predictive analytics project analyzing factors that drive app downloads, user 
 2. Install dependencies:  
    ```bash
    !pip install pandas numpy scikit-learn matplotlib seaborn kaggle
-
+   
 ## 📊 Visualizations
 
 1. **Distribution of log(Installs)**  
