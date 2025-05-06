@@ -36,26 +36,28 @@ A predictive analytics project analyzing factors that drive app downloads, user 
    ```bash
    !pip install pandas numpy scikit-learn matplotlib seaborn kaggle
 
-- **Distribution of log(Installs)**  
-  ![Distribution](visualizations/Distribution of log(Installs).png)
+## 📊 Visualizations
 
-- **Top 10 App Categories**  
-  ![Categories](visualizations/Top 10 App Categories.png)
+1. **Distribution of log(Installs)**  
+   ![Distribution of log(Installs)](visualizations/Distribution%20of%20log%28Installs%29.png)
 
-- **Reviews vs. Installs**  
-  ![Reviews vs Installs](visualizations/Reviews vs. Installs.png)
+2. **Top 10 App Categories**  
+   ![Top 10 App Categories](visualizations/Top%2010%20App%20Categories.png)
 
-- **Rating by Top 5 Categories**  
-  ![Ratings](visualizations/Rating by Top 5 Categories (boxplot).png)
+3. **Reviews vs. Installs**  
+   ![Reviews vs Installs](visualizations/Reviews%20vs.%20Installs.png)
 
-- **Feature Correlation Matrix**  
-  ![Correlation Heatmap](visualizations/Feature Correlation Matrix (heatmap).png)
+4. **Rating by Top 5 Categories (boxplot)**  
+   ![Rating by Top 5 Categories](visualizations/Rating%20by%20Top%205%20Categories%20%28boxplot%29.png)
 
-- **RF: Actual vs Predicted Installs**  
-  ![RF Actual vs Predicted](visualizations/Actual vs Predicted Installs .png)
+5. **Feature Correlation Matrix (heatmap)**  
+   ![Feature Correlation Matrix](visualizations/Feature%20Correlation%20Matrix%20%28heatmap%29.png)
 
-- **Top 10 Feature Importances**  
-  ![Feature Importances](visualizations/Top 10 Feature Importances (bar chart).png)
+6. **RF: Actual vs Predicted Installs**  
+   ![Actual vs Predicted Installs](visualizations/Actual%20vs%20Predicted%20Installs%20.png)
 
-- **Revenue vs Price Curve**  
-  ![Revenue Curve](visualizations/Revenue vs. Price Curve.png)
+7. **Top 10 Feature Importances (bar chart)**  
+   ![Top 10 Feature Importances](visualizations/Top%2010%20Feature%20Importances%20%28bar%20chart%29.png)
+
+8. **Revenue vs. Price Curve**  
+   ![Revenue vs. Price Curve](visualizations/Revenue%20vs.%20Price%20Curve.png)
