@@ -145,18 +145,118 @@ This project demonstrated an end-to-end predictive analytics workflow on the Pla
 
 ---
 
-## Appendix
+# Appendix
 
-### A. Code Snippets  
-- Parsing & cleaning functions  
-- Model training and evaluation calls  
-- Price-optimization simulation code
+## A. Key Code Snippets
 
-### B. Figures  
-- EDA plots (histograms, boxplots, heatmap)  
-- Model performance charts (actual vs. predicted)  
-- Price optimization revenue curve
+Below are the essential code excerpts needed to reproduce our pipeline:
+
+### 1. Parsing & Cleaning
+
+```python
+import numpy as np
+import pandas as pd
+
+def parse_reviews(x):
+    if pd.isna(x):
+        return np.nan
+    s = str(x).strip()
+    if s.lower().endswith('m'):
+        return float(s[:-1]) * 1e6
+    if s.lower().endswith('k'):
+        return float(s[:-1]) * 1e3
+    s_clean = s.replace(',', '')
+    return float(s_clean) if s_clean.isdigit() else np.nan
+
+df['Reviews'] = df['Reviews'].apply(parse_reviews)
+installs_clean = df['Installs'].str.replace(r'[+,]', '', regex=True)
+df['Installs'] = installs_clean.astype(int)
+
+df['Price'] = pd.to_numeric(
+    df['Price'].str.replace(r'^\$', '', regex=True),
+    errors='coerce'
+).fillna(0.0)
+
+def parse_size(size):
+    if pd.isna(size) or size == 'Varies with device':
+        return np.nan
+    s = size.strip()
+    if s.endswith('M'):
+        return float(s[:-1])
+    return float(s[:-1]) / 1024
+
+df['Size'] = df['Size'].apply(parse_size)
+```
+
+### 2. Model Training & Evaluation
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model  import LinearRegression
+from sklearn.ensemble       import RandomForestRegressor
+from sklearn.metrics        import r2_score, mean_squared_error
+
+X = df[feature_cols]
+y = df['log_Installs']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Linear Regression
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_test)
+
+# Random Forest
+rf = RandomForestRegressor(random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+y_pred_rf = rf.predict(X_test)
+
+print("LR R²:", r2_score(y_test, y_pred_lr),
+      "RMSE:", mean_squared_error(y_test, y_pred_lr, squared=False))
+print("RF R²:", r2_score(y_test, y_pred_rf),
+      "RMSE:", mean_squared_error(y_test, y_pred_rf, squared=False))
+```
+
+### 3. Price‑Optimization Simulation
+
+```python
+import numpy as np
+import pandas as pd
+
+results = []
+for price in np.arange(0.99, 10.0, 1.0):
+    sim = df[df['is_free'] == 0].copy()
+    sim['Price'] = price
+    sim['price_vs_global_median'] = price / global_median
+    log_installs = rf.predict(sim[feature_cols_elastic])
+    installs = np.expm1(log_installs)
+    revenue = installs * price
+    results.append({'Price': price, 'TotalRevenue': revenue.sum()})
+
+results_df = pd.DataFrame(results)
+best = results_df.loc[results_df['TotalRevenue'].idxmax()]
+print("Optimal Price:", best.Price)
+```
 
 ---
 
-*Report prepared by Rithanya Chandran. Contact: Rithanya.Chandran@su.suffolk.edu*
+## B. Additional Figures
+
+For detailed reference, include full‑size versions of these plots (available in the `visualizations/` folder):
+
+1. **EDA Plots**  
+   - Figure 1: Distribution of log(Installs)  
+   - Figure 2: Top 10 App Categories  
+   - Figure 3: Reviews vs. Installs (log–log)  
+   - Figure 4: Rating by Top 5 Categories  
+   - Figure 5: Feature Correlation Matrix  
+
+2. **Model Diagnostics**  
+   - Figure 6: RF: Actual vs. Predicted Installs  
+   - Figure 7: Top 10 Feature Importances  
+
+3. **Price Optimization**  
+   - Figure 8: Revenue vs. Price Curve  
+
+*Report prepared by Rithanya Chandran — Contact: Rithanya.Chandran@su.suffolk.edu*  
